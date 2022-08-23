@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/git-commands/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/Corvusoft/restbed
+	branch = master
+	commit = 4b33f3f92dddb79b031b4a2a347fd621c396722c
+	parent = 2445486bd24475219eff6783fa0b7312615db611
+	method = merge
+	cmdver = 0.4.3
