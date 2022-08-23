@@ -1,0 +1,57 @@
+{
+  "name" : "restbed",
+  "type" : "lib",
+  "build_in": "github",
+  "clear_build_path" : true,
+  "next": [
+    {
+      "run_when" : [
+        "release"
+      ],
+      "build" : "in_container",
+      "build_in": "tome_restbed-external",
+      "config" : {
+        "clear_build_path" : false,
+        "type": "tome",
+        "image" : "eons/img_generic-builder",
+        "copy_env" : [
+          "repo_username",
+          "repo_password"
+        ],
+        "next": [
+          {
+            "build" : "arbitrary",
+            "copy" : [
+              {"../../../restbed/" : "restbed/"}
+            ],
+            "config" : {
+              "commands": [
+                "cd /mnt/env/restbed; mkdir build; cd build; cmake -DBUILD_SSL=NO -DBUILD_TESTS=NO ..; make; make install",
+                "mkdir BUILD_COMPLETE",
+                "mkdir BUILD_COMPLETE/inc",
+                "mkdir BUILD_COMPLETE/lib",
+                "cp -rav /usr/local/include/restbed BUILD_COMPLETE/inc/",
+                "cp -rav /usr/local/include/corvusoft BUILD_COMPLETE/inc/",
+                "cp -rav /usr/local/lib/librestbed* BUILD_COMPLETE/lib/"
+              ],
+              "next" : [
+                {
+                  "build": "publish",
+                  "build_in" : "BUILD_COMPLETE",
+                  "run_when" : [
+                    "release"
+                  ],
+                  "config": {
+                    "clear_build_path" : false,
+                    "type": "tome",
+                    "visibility": "public"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
