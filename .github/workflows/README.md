@@ -14,7 +14,7 @@ Make sure you have a valid EBBS github.json in the build folder of your director
   "next": [
     {
       "build" : "publish",
-      "run_when" : "release",
+      "run_when_any" : "release",
       "copy" : [
         {"../../inc/" : "inc/"}
       ],
@@ -49,12 +49,12 @@ The following events trigger ebbs workflows:
  * "push"
  * "pull_request"
 
-Any of those events can be used with the `"run_when"` json var, allowing you to use a single build.json for all your workflows.
+Any of those events can be used with the `"run_when_..."` json varr, allowing you to use a single build.json for all your workflows. See [the ebbs docs](https://github.com/eons-dev/bin_ebbs) for more info
 
 For example:
 ```json
 {
-  "run_when": [
+  "run_when_any": [
     "pull_request"
   ]
 }
